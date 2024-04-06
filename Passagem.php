@@ -3,11 +3,12 @@
 require_once 'Aeronave.php';
 require_once 'Aeroporto.php';
 require_once 'Cliente.php';
-require_once 'Embarque.php';
 require_once 'Funcionario.php';
 require_once 'Index.php';
 require_once 'Pessoa.php';
 require_once 'Voo.php';
+require_once 'CheckIn.php';
+require_once 'Bagagem.php';
 
 class Passagem
 {
@@ -16,14 +17,16 @@ class Passagem
     private int $numeroAssento;
     private int $guicheEmbarque;
     private DateTime $dataEmbarque;
+    private Voo $voo;
 
-    public function __construct(Cliente $cliente, int $codigoPassagem, int $numeroAssento, int $guicheEmbarque, DateTime $dataEmbarque)
+    public function __construct(Cliente $cliente, int $codigoPassagem, int $numeroAssento, int $guicheEmbarque, DateTime $dataEmbarque, Voo $voo)
     {
         $this->cliente = $cliente;
         $this->codigoPassagem = $codigoPassagem;
         $this->numeroAssento = $numeroAssento;
         $this->guicheEmbarque = $guicheEmbarque;
         $this->dataEmbarque = $dataEmbarque;
+        $this->voo = $voo;
     }
 
     public function getCliente(): Cliente
@@ -51,6 +54,11 @@ class Passagem
         return $this->dataEmbarque;
     }
 
+    public function getVoo(): Voo
+    {
+        return $this->voo;
+    }
+
     public function setCliente(Cliente $cliente): void
     {
         $this->cliente = $cliente;
@@ -76,26 +84,19 @@ class Passagem
         $this->dataEmbarque = $dataEmbarque;
     }
 
-    public function validarPassagem(Passagem $dataEmbarque, Voo $dataVoo): bool
+    public function setVoo(Voo $voo): void
     {
-        $dataEmbarque = $dataEmbarque->getDataEmbarque();
-        $dataVoo = $dataVoo->getDataVoo();
-        
-        if($dataEmbarque <= $dataVoo) {
-            return true; 
-            echo "A passagem é válida.";
-        } else {
-            echo "A passagem está vencida.";
-        }
+        $this->voo = $voo;
     }
-    
+
+
+
     public function __toString(): string
     {
         return "Cliente: " . $this->cliente->__toString() . "\n" .
-               "Código da Passagem: " . $this->codigoPassagem . "\n" .
-               "Número do Assento: " . $this->numeroAssento . "\n" .
-               "Guichê de Embarque: " . $this->guicheEmbarque . "\n" .
-               "Data de Embarque: " . $this->dataEmbarque->format('Y-m-d H:i:s') . "\n";
+            "Código da Passagem: " . $this->codigoPassagem . "\n" .
+            "Número do Assento: " . $this->numeroAssento . "\n" .
+            "Guichê de Embarque: " . $this->guicheEmbarque . "\n" .
+            "Data de Embarque: " . $this->dataEmbarque->format('Y-m-d H:i:s') . "\n";
     }
-
 }

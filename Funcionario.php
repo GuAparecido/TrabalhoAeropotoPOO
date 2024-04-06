@@ -3,11 +3,11 @@
 require_once 'Aeronave.php';
 require_once 'Aeroporto.php';
 require_once 'Cliente.php';
-require_once 'Embarque.php';
 require_once 'Index.php';
 require_once 'Passagem.php';
 require_once 'Pessoa.php';
 require_once 'Voo.php';
+require_once 'CheckIn.php';
 
 class Funcionario extends Pessoa
 {

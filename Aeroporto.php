@@ -2,12 +2,13 @@
 
 require_once 'Aeronave.php';
 require_once 'Cliente.php';
-require_once 'Embarque.php';
 require_once 'Funcionario.php';
 require_once 'Index.php';
 require_once 'Passagem.php';
 require_once 'Pessoa.php';
 require_once 'Voo.php';
+require_once 'CheckIn.php';
+require_once 'Bagagem.php';
 
 class Aeroporto
 {

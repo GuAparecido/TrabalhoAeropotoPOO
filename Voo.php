@@ -3,11 +3,12 @@
 require_once 'Aeroporto.php';
 require_once 'Aeronave.php';
 require_once 'Cliente.php';
-require_once 'Embarque.php';
 require_once 'Funcionario.php';
 require_once 'Index.php';
 require_once 'Passagem.php';
 require_once 'Pessoa.php';
+require_once 'CheckIn.php';
+require_once 'Bagagem.php';
 
 class Voo
 {
@@ -20,7 +21,7 @@ class Voo
     private array $clientes;
     private array $funcionarios;
 
-    public function __construct(int $codigoVoo, Aeronave $aeronave, Aeroporto $localPartida, Aeroporto $localDestino, float $tempoVoo, DateTime $dataVoo, array $clientes, array $funcionarios)
+    public function __construct(int $codigoVoo, Aeronave $aeronave, Aeroporto $localPartida, Aeroporto $localDestino, float $tempoVoo, DateTime $dataVoo)
     {
         $this->codigoVoo = $codigoVoo;
         $this->aeronave = $aeronave;
@@ -123,7 +124,7 @@ class Voo
         }, $this->funcionarios));
 
       return "Código do Voo: " . $this->codigoVoo .
-           "\nAeronave que realiza o transporte: " . $this->aeronave->getModelo() .
+           "\nAeronave que realiza o transporte: " . $this->aeronave->getModelo() . 
           "\nLocal de Partida: " . $this->localPartida->getLocalizacao() .
            "\nLocal de Destino: " . $this->localDestino->getLocalizacao() .
           "\nTempo de Voo: " . $this->tempoVoo .
@@ -137,10 +138,14 @@ class Voo
         array_push($this->clientes, $cliente);
     }
 
+    public function removerClientes(Cliente $cliente): void
+    {
+        $index = array_search($cliente, $this->clientes, true);
+        unset($this->clientes[$index]);
+    }
+
     public function adicionarFuncionarios(Funcionario $funcionario): void
     {
         array_push($this->funcionarios, $funcionario);
     }
-
-
 }
